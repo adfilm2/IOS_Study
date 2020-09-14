@@ -8,4 +8,5 @@ target 'MVVM_Calculator' do
   # Pods for MVVM_Calculator
 
 pod 'RxSwift','~> 5'
+pod 'RxCocoa'
 end

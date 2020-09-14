@@ -10,4 +10,7 @@ import Foundation
 
 class Model {
     var savedAnswer: Int = 0
+    var num1: Int = 0
+    var num2: Int = 0
+    
 }

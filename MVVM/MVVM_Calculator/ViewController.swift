@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxCocoa
 
 class ViewController: UIViewController {
     
@@ -19,26 +20,25 @@ class ViewController: UIViewController {
     @IBOutlet weak var division: UIButton!
     @IBOutlet weak var answer: UILabel!
     
+    let viewModel = ViewModel()
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        viewModel.result$
+            .map{ ans in "The answer is \(ans)" }
+            .bind(to: answer.rx.text)
+            .disposed(by: disposeBag)
+        
         setLayout()
+        binding()
     }
     
     @IBAction func calculate(_ sender: UIButton){
         if(!checkEmpty()){
-            switch sender.tag{
-            case 1:
-                print("플러스")
-            case 2:
-                print("마이너스")
-            case 3:
-                print("곱하기")
-            case 4:
-                print("나누기")
-            default:
-                break
-            }
+            viewModel.claculate(Int(num1.text!)!, Int(num2.text!) ?? 0, _tag: sender.tag)
+            
         }else{
             answer.text = "값을 입력해주세요"
         }
@@ -51,6 +51,12 @@ class ViewController: UIViewController {
     }
     
     func setLayout(){
+        
+    }
+    
+    func binding(){
+//        num1.rx.text.orEmpty.distinctUntilChanged().subscribe(onNext:viewModel.num1).disposed(by: disposeBag)
+//        num2.rx.text.orEmpty.distinctUntilChanged().subscribe(onNext:viewModel.num2).disposed(by: disposeBag)
         
     }
     
