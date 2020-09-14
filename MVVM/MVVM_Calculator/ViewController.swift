@@ -25,19 +25,20 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        //뷰모델의 result가 바뀌면 뷰의 answer 라벨이 바뀌도록
         viewModel.result$
             .map{ ans in "The answer is \(ans)" }
             .bind(to: answer.rx.text)
             .disposed(by: disposeBag)
         
         setLayout()
-        binding()
+        
     }
     
     @IBAction func calculate(_ sender: UIButton){
         if(!checkEmpty()){
-            viewModel.claculate(Int(num1.text!)!, Int(num2.text!) ?? 0, _tag: sender.tag)
+            viewModel.claculate(Int(num1.text!)!, Int(num2.text!)!, _tag: sender.tag)
             
         }else{
             answer.text = "값을 입력해주세요"
@@ -54,11 +55,7 @@ class ViewController: UIViewController {
         
     }
     
-    func binding(){
-//        num1.rx.text.orEmpty.distinctUntilChanged().subscribe(onNext:viewModel.num1).disposed(by: disposeBag)
-//        num2.rx.text.orEmpty.distinctUntilChanged().subscribe(onNext:viewModel.num2).disposed(by: disposeBag)
-        
-    }
+    
     
     
 }

@@ -11,11 +11,15 @@ import RxSwift
 import RxCocoa
 
 class ViewModel {
+    let model = Model()
+    
     var num1: Int = 0
     var num2: Int = 0
+    
     var result = 0 {
         didSet{
             result$.onNext(result)
+            model.savedAnswer = result
         }
     }
     var result$ = PublishSubject<Int>()
